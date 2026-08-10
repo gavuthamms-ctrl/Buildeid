@@ -629,6 +629,27 @@ function copyCanvasToResult() {
   dst.getContext('2d').drawImage(src, 0, 0);
 }
 
+function downloadPNG() {
+  const canvas = $('result-canvas');
+  const link = document.createElement('a');
+  link.download = `hhgoa-builder-id-${(state.name || 'builder').replace(/\s+/g, '-').toLowerCase()}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+function captionText() {
+  const name = state.name ? state.name.toUpperCase() : 'BUILDER';
+  const role = state.role ? ` - ${state.role.toUpperCase()}` : '';
+  return `Secured my Hacker House Goa 2026 Builder ID! 🏝️\n\nName: ${name}${role}\nTitle: ${state.title}\n\nJoin the squad at #FrameInGoa!`;
+}
+
+function shareToX() {
+  const text = encodeURIComponent(captionText());
+  const url = encodeURIComponent(window.location.origin || 'https://buildeid.vercel.app');
+  window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+  $('shared-msg').style.display = 'block';
+}
+
 function scheduleRedraw(imm) {
   if (state.drawTimer) clearTimeout(state.drawTimer);
   state.drawTimer = setTimeout(() => drawCard('card-canvas'), imm ? 0 : 60);
@@ -674,21 +695,17 @@ $('inp-role').addEventListener('input', e => {
   scheduleRedraw();
 });
 
-// Title input
-$('inp-title').addEventListener('input', e => {
-  state.title = e.target.value;
-  scheduleRedraw();
-});
 
-// Shuffle
-$('shuffle-btn').addEventListener('click', () => {
+
+// Shuffle/Click on Builder Title trigger
+$('title-trigger-pill').addEventListener('click', () => {
   state.title = randomTitle(state.title);
-  $('inp-title').value = state.title;
+  $('title-display').textContent = state.title;
   scheduleRedraw();
 });
 
-// Set initial title in input
-$('inp-title').value = state.title;
+// Set initial title in DOM
+$('title-display').textContent = state.title;
 
 // Touch handling for mobile pinch-to-zoom & drag
 let tpCache = [];
