@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
   <meta name="theme-color" content="#0B6839" />
   <title>HH Goa 2026 — Builder ID Card Generator</title>
   <meta name="description" content="Create your personal Builder ID card for Hacker House Goa 2026. Upload a photo, fill details, share on X with #FrameInGoa." />
@@ -12,68 +12,67 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="HH Goa 2026 — Builder ID Card Generator" />
   <meta name="twitter:description" content="Make your Builder ID card for Hacker House Goa 2026 in 15 seconds." />
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,700;8..60,900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-  
+
   <style>
     /* ─── RESET & SYSTEM VARIABLES ──────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg-dark:     #001809;
-      --deep-forest: #063C21;
-      --emerald:     #0B6839;
-      --gold:        #F9D710;
-      --pink:        #FF0080;
-      --sage:        #9AC95F;
-      --white:       #ffffff;
-      --text-dim:    rgba(185, 239, 200, 0.7);
-      --glass:       rgba(255, 255, 255, 0.06);
-      --glass-border:rgba(255, 255, 255, 0.12);
-      --font-display: 'Source Serif 4', serif;
-      --font-mono:    'Space Mono', monospace;
-    }
-    
-    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
-    body {
-      font-family: var(--font-mono);
-      background-color: var(--emerald);
-  
-      background-attachment: fixed;
-      min-height: 100dvh;
-      color: #b9efc8;
-      overflow-x: hidden;
-    }
-    
-    .botanical-pattern {
-      background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0c11.046 0 20 8.954 20 20s-8.954 20-20 20S0 31.046 0 20 8.954 0 20 0zm0 2c-9.941 0-18 8.059-18 18s8.059 18 18 18 18-8.059 18-18S29.941 2 20 2zm0 8c5.523 0 10 4.477 10 10s-4.477 10-10 10-10-4.477-10-10 4.477-10 10-10zm0 2c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8z' fill='%239AC95F' fill-opacity='0.04' fill-rule='evenodd'/%3E%3C/svg%3E");
+      --bg-dark:                    #001809;
+      --deep-forest:                #063C21;
+      --emerald:                    #0B6839;
+      --gold:                       #FBD903; /* Match Sun/Accent gold */
+      --pink:                       #E6207C; /* Match sparing signage pink */
+      --sage:                       #9AC95F;
+      --white:                      #ffffff;
+      --text-dim:                   rgba(185, 239, 200, 0.7);
+      --glass:                      rgba(255, 255, 255, 0.06);
+      --glass-border:               rgba(255, 255, 255, 0.12);
+      --font-display:               'Source Serif 4', serif;
+      --font-mono:                  'Space Mono', monospace;
+      
+      /* Stitch Tokens Integration */
+      --surface-variant:            #083d22;
+      --surface-container-highest:  #083d22;
+      --surface-container-low:      #00210f;
+      --on-surface:                 #b9efc8;
+      --on-surface-variant:         #cfc6ab;
+      --botanical-sage:             #9AC95F;
+      --primary-container:          #f9d710;
+      --magenta-pink:               #FF0080;
     }
 
-    /* ─── LAYOUT & CONTAINERS ───────────────────────────────── */
-    #app {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column; align-items: center;
+    body {
+      font-family: var(--font-mono);
+      background-color: var(--bg-dark);
+      color: var(--on-surface);
       min-height: 100dvh;
-      padding: 0 16px 64px;
-      max-width: 520px;
-      margin: 0 auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bg-botanical-pattern {
+      background-image: radial-gradient(circle at 2px 2px, rgba(154, 201, 95, 0.15) 1px, transparent 0);
+      background-size: 24px 24px;
     }
 
     /* ─── TOP HEADER BAR ────────────────────────────────────── */
     header {
-      background: var(--emerald);
+      background: var(--bg-dark);
       border-bottom: 4px solid var(--gold);
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      max-width: 520px;
-      padding: 12px 24px;
+      padding: 0 40px;
       height: 64px;
       z-index: 50;
-      margin-bottom: 24px;
+      flex-shrink: 0;
     }
     .header-title {
       font-family: var(--font-mono);
@@ -82,15 +81,66 @@
       letter-spacing: 0.25em;
       color: var(--gold);
       text-transform: uppercase;
+      text-align: center;
+      flex-grow: 1;
     }
 
-    .gradient-text {
-      background: linear-gradient(100deg, var(--gold), var(--sage), #fff);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+    /* ─── NESTED FRAME SYSTEM ────────────────────────────────── */
+    .dotted-border-container {
+      width: 100%;
+      max-width: 800px;
+      border: 2px dotted var(--pink);
+      padding: 12px;
+      background-color: var(--bg-dark);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .structural-frame {
+      width: 100%;
+      border: 4px solid var(--gold);
+      background-color: var(--surface-variant);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 24px;
+      overflow: hidden;
+    }
+    .watermark-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.15;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      object-cover: cover;
+      object-position: bottom;
+      mix-blend-mode: luminosity;
+    }
+    .inner-field {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* ─── BUTTONS & INTERACTIVE ELEMENTS ───────────────────── */
+    .corner-icon {
+      position: absolute;
+      color: var(--sage);
+      font-size: 28px;
+      font-variation-settings: 'FILL' 1;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* ─── BUTTONS ───────────────────────────────────────────── */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
       padding: 14px 28px; border: none; border-radius: 50px;
@@ -104,22 +154,22 @@
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-primary {
       background-color: var(--gold);
-      color: var(--bg-dark);
+      color: var(--deep-forest);
       border: 2px solid var(--gold);
     }
-    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(249, 215, 16, 0.2); }
+    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(251, 217, 3, 0.2); }
     .btn-secondary {
       background: var(--glass); color: var(--gold);
       border: 2px solid var(--gold);
     }
-    .btn-secondary:hover { background: rgba(249, 215, 16, 0.08); transform: translateY(-1px); }
+    .btn-secondary:hover { background: rgba(251, 217, 3, 0.08); transform: translateY(-1px); }
     .btn-share {
       background: var(--pink);
       color: #fff;
       border: 2px solid var(--gold);
-      box-shadow: 0 4px 15px rgba(255, 0, 128, 0.2);
+      box-shadow: 0 4px 15px rgba(230, 32, 124, 0.2);
     }
-    .btn-share:hover:not(:disabled) { box-shadow: 0 6px 24px rgba(255, 0, 128, 0.35); transform: translateY(-2px); }
+    .btn-share:hover:not(:disabled) { box-shadow: 0 6px 24px rgba(230, 32, 124, 0.35); transform: translateY(-2px); }
     .btn-back {
       background: none; border: none; color: var(--text-dim);
       font-family: var(--font-mono); font-size: 12px; cursor: pointer;
@@ -129,34 +179,16 @@
     }
     .btn-back:hover { color: var(--white); }
 
-    /* ─── NESTED FRAME SYSTEM ────────────────────────────────── */
-    .dotted-border-container {
-      width: 100%;
-      border: 2px dotted var(--pink);
-      padding: 12px;
-      background-color: var(--emerald);
-      position: relative;
-    }
-    .structural-frame {
-      width: 100%;
-      border: 4px solid var(--gold);
-      background-color: var(--deep-forest);
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 32px 16px;
-    }
-
-    .corner-icon {
-      position: absolute;
-      color: var(--sage);
-      font-size: 28px;
-      font-variation-settings: 'FILL' 1;
-      pointer-events: none;
-    }
-
     /* ─── SCREENS ───────────────────────────────────────────── */
+    #app {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
+      flex-grow: 1;
+      padding: 40px 16px 64px;
+      max-width: 840px;
+      margin: 0 auto;
+      width: 100%;
+    }
     .screen {
       display: none; flex-direction: column;
       align-items: center; gap: 24px; width: 100%;
@@ -165,25 +197,23 @@
 
     /* ─── LANDING SCREEN ────────────────────────────────────── */
     #landing { text-align: center; }
-
     .h1 {
       font-family: var(--font-display);
       font-size: clamp(2.2rem, 9vw, 3rem);
       font-weight: 900; line-height: 1.1; letter-spacing: 0.02em;
       color: var(--gold);
       margin-bottom: 8px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
-
     .sub {
       color: var(--text-dim); font-size: 14px; line-height: 1.6;
-      max-width: 340px;
+      max-width: 440px;
     }
-
     .demo-wrap { position: relative; width: 220px; margin: 8px 0; }
     .demo-card {
       width: 220px;
       height: 290px;
-      background-color: var(--emerald);
+      background-color: var(--bg-dark);
       border: 4px solid var(--gold);
       padding: 16px 12px;
       display: flex; flex-direction: column; align-items: center; justify-content: space-between;
@@ -198,16 +228,16 @@
     
     .demo-slot {
       width: 100%; height: 110px;
-      background-color: var(--emerald);
+      background-color: var(--bg-dark);
       border: 2px solid var(--gold);
       display: flex; align-items: center; justify-content: center;
-      font-size: 2rem;
+      font-size: 2.2rem;
     }
     .demo-texts { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; }
     .demo-name  { font-family: var(--font-display); font-weight: 900; font-size: 1.2rem; color: var(--gold); }
     .demo-pill  {
       background-color: var(--pink);
-      color: var(--gold); font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+      color: var(--white); font-family: var(--font-mono); font-size: 9px; font-weight: 700;
       padding: 3px 10px; border-radius: 50px;
       border: 1px solid var(--gold);
     }
@@ -237,32 +267,48 @@
     .section-h2 {
       font-family: var(--font-display);
       font-size: 2.2rem; font-weight: 900;
-      align-self: flex-start;
+      align-self: center;
       color: var(--gold);
+      margin-bottom: 4px;
     }
-    .section-sub { color: var(--text-dim); font-size: 14px; align-self: flex-start; margin-top: -12px; }
+    .section-sub { color: var(--text-dim); font-size: 14px; text-align: center; margin-top: -12px; }
 
-    .dropzone {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 12px;
-      padding: 44px 20px; min-height: 200px; width: 100%;
-      background: var(--glass);
-      border: 2px dashed var(--gold);
+    .dropzone-label {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      border: 4px solid var(--gold);
+      background-color: var(--deep-forest);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      transition: border-color 0.2s, background-color 0.2s;
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s;
     }
-    .dropzone:hover, .dropzone.drag-over {
-      border-color: var(--white);
-      background-color: rgba(255, 255, 255, 0.05);
+    .dropzone-label:hover {
+      transform: scale(1.02);
     }
-    .dz-icon { font-size: 2.6rem; }
-    .dz-text { font-size: 1rem; font-weight: 700; text-align: center; }
-    .dz-hint { font-size: 12px; color: var(--text-dim); font-family: var(--font-mono); }
+    .dz-dashed-inner {
+      position: absolute;
+      inset: 12px;
+      border-radius: 50%;
+      border: 2px dashed rgba(251, 217, 3, 0.5);
+      pointer-events: none;
+      transition: transform 0.5s;
+    }
+    .dropzone-label:hover .dz-dashed-inner {
+      transform: rotate(12deg);
+    }
+    .dz-icon { font-size: 2.5rem; color: var(--gold); }
+    .dz-text { font-size: 11px; font-weight: 700; color: var(--gold); text-align: center; padding: 0 16px; }
 
     /* ─── DETAILS SCREEN ────────────────────────────────────── */
     .preview-wrap {
       width: 100%;
+      max-width: 420px;
       border: 4px solid var(--gold);
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.55);
       position: relative;
@@ -276,7 +322,7 @@
       font-family: var(--font-mono); background: rgba(0,0,0,0.4); padding: 4px 12px; border-radius: 50px;
     }
 
-    .form-group { display: flex; flex-direction: column; gap: 6px; width: 100%; position: relative; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; width: 100%; max-width: 420px; position: relative; }
     .form-label { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
     .form-input {
       background: var(--deep-forest);
@@ -286,7 +332,7 @@
       outline: none;
       transition: border-color .2s, box-shadow .2s; width: 100%; min-height: 52px;
     }
-    .form-input::placeholder { color: rgba(249, 215, 16, 0.3); }
+    .form-input::placeholder { color: rgba(251, 217, 3, 0.3); }
     .form-input:focus { border-color: var(--white); box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15); }
     .char-count {
       position: absolute; right: 14px; bottom: 16px;
@@ -311,7 +357,7 @@
       font-family: var(--font-mono);
       font-size: 12px;
       font-weight: 700;
-      color: var(--gold);
+      color: var(--white);
       letter-spacing: 0.15em;
       text-transform: uppercase;
       overflow: hidden;
@@ -331,16 +377,15 @@
 
     /* ─── RESULT SCREEN ─────────────────────────────────────── */
     #result { text-align: center; }
-    
-    .action-row { display: flex; flex-direction: column; gap: 12px; width: 100%; }
-    @media (min-width: 400px) {
+    .action-row { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 420px; }
+    @media (min-width: 480px) {
       .action-row { flex-direction: row; }
       .action-row .btn-secondary { flex: 1; }
       .action-row .btn-share     { flex: 1.3; }
     }
 
     .caption-box {
-      width: 100%; background: var(--glass);
+      width: 100%; max-width: 420px; background: var(--glass);
       border: 1px solid var(--glass-border);
       padding: 16px;
       text-align: left;
@@ -349,7 +394,7 @@
     .caption-txt { font-size: 14px; color: #b9efc8; line-height: 1.6; }
 
     .shared-msg {
-      width: 100%; padding: 14px 18px;
+      width: 100%; max-width: 420px; padding: 14px 18px;
       background: rgba(154, 201, 95, 0.12); border: 1px solid var(--sage);
       font-size: 14px; color: var(--sage); text-align: center;
     }
@@ -358,13 +403,53 @@
       font-family: var(--font-mono); font-weight: 700; font-size: 14px;
       cursor: pointer; text-decoration: underline; padding: 0;
     }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer {
+      border-top: 1px dotted rgba(230, 32, 124, 0.3);
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 32px 40px;
+      text-align: center;
+      z-index: 10;
+      margin-top: auto;
+    }
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 8px;
+    }
+    .footer-link {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .footer-link:hover {
+      opacity: 1;
+    }
+    .footer-date {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      opacity: 0.5;
+    }
   </style>
 </head>
-<body class="bg-background min-h-screen flex flex-col font-body-mono selection:bg-pink selection:text-white">
+<body class="bg-botanical-pattern">
 
 <header>
   <div class="flex items-center gap-2">
-    <span class="material-symbols-outlined text-primary-container hover:text-tertiary transition-colors scale-95 active:scale-90 cursor-pointer" style="color: var(--gold)">grid_view</span>
+    <span class="material-symbols-outlined hover:text-tertiary transition-colors scale-95 active:scale-90 cursor-pointer" style="color: var(--gold)">grid_view</span>
   </div>
   <div class="header-title">GOA, INDIA</div>
   <div class="w-6 h-6"></div>
@@ -374,48 +459,88 @@
 
   <!-- ══ LANDING ═══════════════════════════════════════════════ -->
   <section id="landing" class="screen active">
-    <div class="badge-tag">🏝️ Hacker House Goa 2026</div>
+    <div class="dotted-border-container">
+      <div class="structural-frame">
+        <!-- Corner Botanical Ornaments -->
+        <span class="material-symbols-outlined corner-icon top-4 left-4">eco</span>
+        <span class="material-symbols-outlined corner-icon top-4 right-4">eco</span>
+        <span class="material-symbols-outlined corner-icon bottom-4 left-4">eco</span>
+        <span class="material-symbols-outlined corner-icon bottom-4 right-4">eco</span>
 
-    <h1 class="h1">Build your<br /><span class="gradient-text">Builder ID Card</span></h1>
-    <p class="sub">Upload a photo. Fill details. Get a premium card to share on X.</p>
+        <!-- Watermark Background -->
+        <img alt="Scenic Background Watermark" class="watermark-bg" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
 
-    <div class="demo-wrap">
-      <div class="demo-card">
-        <div class="stamp-edge-overlapping">गोवा</div>
-        <div class="demo-hdr">GOA, INDIA</div>
-        <div class="demo-slot">🧑‍💻</div>
-        <div class="demo-texts">
-          <div class="demo-name">ARJUN KUMAR</div>
-          <div class="demo-pill">BUILDER</div>
-        </div>
-        <div class="demo-footer">
-          <span>#FrameInGoa</span>
-          <span>28 – 31 OCT 2026</span>
+        <div class="inner-field py-8">
+          <h1 class="h1">BUILDER<br />ID</h1>
+          
+          <div class="demo-wrap mb-8">
+            <div class="demo-card">
+              <div class="stamp-edge-overlapping">गोवा</div>
+              <div class="demo-hdr" style="font-family: var(--font-mono); font-size: 8px; color: var(--gold); tracking-widest: 0.15em;">GOA, INDIA</div>
+              <div class="demo-slot">🧑‍💻</div>
+              <div class="demo-texts">
+                <div class="demo-name">ARJUN KUMAR</div>
+                <div class="demo-pill">BUILDER</div>
+              </div>
+              <div class="demo-footer">
+                <span>#FrameInGoa</span>
+                <span>28 – 31 OCT 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary max-w-xs drop-shadow-md" id="cta-btn">MAKE MY ID</button>
         </div>
       </div>
-      <div class="demo-glow"></div>
     </div>
-
-    <button class="btn btn-primary" id="cta-btn">Make My Builder ID →</button>
   </section>
 
   <!-- ══ UPLOAD ═════════════════════════════════════════════════ -->
   <section id="upload" class="screen">
-    <button class="btn-back" id="upload-back">← Back</button>
-    <h2 class="section-h2">Add your photo</h2>
-    <p class="section-sub">Selfie, portrait, or any photo you like.</p>
-
     <div class="dotted-border-container">
-      <div class="structural-frame">
-        <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Upload photo">
-          <span class="dz-icon">📸</span>
-          <p class="dz-text">Tap to choose or drop image here</p>
-          <p class="dz-hint">JPG · PNG · HEIC supported</p>
+      <div class="structural-frame bg-botanical-pattern">
+        <!-- Corner Botanical Ornaments -->
+        <span class="material-symbols-outlined corner-icon top-4 left-4">eco</span>
+        <span class="material-symbols-outlined corner-icon top-4 right-4">eco</span>
+        <span class="material-symbols-outlined corner-icon bottom-4 left-4">eco</span>
+        <span class="material-symbols-outlined corner-icon bottom-4 right-4">eco</span>
+
+        <!-- Watermark Background -->
+        <img alt="Scenic Background Watermark" class="watermark-bg" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+
+        <div class="inner-field">
+          <button class="btn-back" id="upload-back">← Back</button>
+          
+          <div class="text-center mb-6">
+            <h2 class="section-h2">STEP 2</h2>
+            <div class="w-16 h-1 bg-primary-container mx-auto mb-4 relative" style="background-color: var(--gold)">
+              <div class="absolute inset-0 bg-primary-container rotate-45 transform origin-center w-2 h-2 m-auto -top-0.5" style="background-color: var(--gold)"></div>
+            </div>
+            <p class="font-label-mono text-label-mono text-botanical-sage">IDENTITY VERIFICATION</p>
+          </div>
+
+          <label class="dropzone-label group" id="dropzone" role="button" tabindex="0" aria-label="Upload photo" for="file-input">
+            <div class="dz-dashed-inner"></div>
+            <div class="flex flex-col items-center justify-center gap-4 z-10 text-primary-container">
+              <span class="material-symbols-outlined dz-icon">add_a_photo</span>
+              <span class="dz-text">ADD YOUR PHOTO</span>
+            </div>
+            <div class="absolute -right-4 -bottom-4 stamp-edge bg-magenta-pink text-white font-label-mono text-[10px] p-2 rotate-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center uppercase tracking-widest font-bold" style="background-color: var(--pink)">
+              REQUIRED
+            </div>
+          </label>
+          <input type="file" id="file-input" accept="image/*,.heic,.heif" style="display:none" />
+          
+          <div class="w-full flex items-center justify-center gap-4 my-6 opacity-50 max-w-md">
+            <div class="flex-1 h-px bg-primary-container" style="background-color: var(--gold)"></div>
+            <div class="w-2 h-2 rotate-45 border border-primary-container" style="border-color: var(--gold)"></div>
+            <div class="flex-1 h-px bg-primary-container" style="background-color: var(--gold)"></div>
+          </div>
+
+          <div class="error-box" id="upload-error" style="display:none"></div>
         </div>
       </div>
     </div>
-    <input type="file" id="file-input" accept="image/*,.heic,.heif" style="display:none" />
-    <div class="error-box" id="upload-error" style="display:none"></div>
   </section>
 
   <!-- ══ DETAILS ════════════════════════════════════════════════ -->
@@ -432,18 +557,18 @@
     </div>
 
     <div class="form-group">
-      <label class="form-label mono" for="inp-name">Name *</label>
+      <label class="form-label" for="inp-name">Name *</label>
       <input type="text" id="inp-name" class="form-input" placeholder="ENTER YOUR NAME" maxlength="24" autocomplete="name" />
       <span class="char-count" id="name-count">0/24</span>
     </div>
 
     <div class="form-group">
-      <label class="form-label mono" for="inp-role">Stack / Role</label>
+      <label class="form-label" for="inp-role">Stack / Role</label>
       <input type="text" id="inp-role" class="form-input" placeholder="E.G. FRONTEND ENGINEER" />
     </div>
 
     <div class="form-group">
-      <label class="form-label mono">Builder Title</label>
+      <label class="form-label">Builder Title</label>
       <div class="builder-title-trigger-pill" id="title-trigger-pill">
         <div class="title-pill-text" id="title-display">CHIEF VIBE OFFICER</div>
         <div class="title-pill-btn">
@@ -482,6 +607,14 @@
   </section>
 
 </div><!-- #app -->
+
+<footer>
+  <div class="footer-links">
+    <a class="footer-link" href="#">TERMS</a>
+    <a class="footer-link" href="#">BUILDER GUIDE</a>
+  </div>
+  <p class="footer-date">28 – 31 OCT 2026</p>
+</footer>
 
 <script>
 const BUILDER_TITLES = [
@@ -582,19 +715,46 @@ function rrect(ctx, x, y, w, h, r) {
 
 function drawCard(canvasId) {
   const canvas = $(canvasId); if (!canvas) return; const ctx = canvas.getContext('2d');
-  ctx.fillStyle = '#0B6839'; ctx.fillRect(0, 0, CW, CH);
-  ctx.strokeStyle = '#F9D710'; ctx.lineWidth = 18; ctx.strokeRect(9, 9, CW - 18, CH - 18);
-  ctx.save(); ctx.strokeStyle = '#FF0080'; ctx.lineWidth = 2; ctx.setLineDash([4, 6]); ctx.strokeRect(28, 28, CW - 56, CH - 56); ctx.restore();
   
-  const drawCorner = (x, y, r) => {
-    ctx.save(); ctx.translate(x, y); ctx.rotate(r); ctx.fillStyle = '#9AC95F';
-    ctx.beginPath(); ctx.ellipse(22, 22, 8, 14, Math.PI/4, 0, Math.PI*2); ctx.fill();
-    ctx.fillStyle = '#F9D710'; ctx.beginPath(); ctx.arc(38, 38, 5, 0, Math.PI*2); ctx.fill(); ctx.restore();
+  // Flat emerald green base background
+  ctx.fillStyle = '#0B6839'; ctx.fillRect(0, 0, CW, CH);
+  
+  // Saffron gold outer border band (18px)
+  ctx.strokeStyle = '#FBD903'; ctx.lineWidth = 18; ctx.strokeRect(9, 9, CW - 18, CH - 18);
+  
+  // Magenta-Pink dotted inset line (28px further in -> 9 + 9 + 28 = 46)
+  ctx.save(); 
+  ctx.strokeStyle = '#E6207C'; 
+  ctx.lineWidth = 2; 
+  ctx.setLineDash([4, 6]); 
+  ctx.strokeRect(46, 46, CW - 92, CH - 92); 
+  ctx.restore();
+  
+  // Corner Botanical accents: draw custom botanical leaf motifs in corner areas
+  const drawCornerBotanical = (x, y, r) => {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(r);
+    
+    // Symmetrical botanical details
+    ctx.fillStyle = '#9AC95F';
+    ctx.beginPath(); 
+    ctx.ellipse(22, 22, 8, 14, Math.PI/4, 0, Math.PI*2); 
+    ctx.fill();
+    
+    ctx.fillStyle = '#FBD903'; 
+    ctx.beginPath(); 
+    ctx.arc(38, 38, 5, 0, Math.PI*2); 
+    ctx.fill(); 
+    ctx.restore();
   };
-  drawCorner(40, 40, 0); drawCorner(CW-40, 40, Math.PI/2); drawCorner(CW-40, CH-40, Math.PI); drawCorner(40, CH-40, Math.PI*3/2);
+  drawCornerBotanical(52, 52, 0); 
+  drawCornerBotanical(CW - 52, 52, Math.PI/2); 
+  drawCornerBotanical(CW - 52, CH - 52, Math.PI); 
+  drawCornerBotanical(52, CH - 52, Math.PI*3/2);
 
-  ctx.save(); ctx.font = '500 24px "JetBrains Mono", monospace'; ctx.fillStyle = '#F9D710'; ctx.textAlign = 'center'; ctx.fillText('GOA, INDIA', CW/2, 128); ctx.restore();
+  // Top header text
+  ctx.save(); ctx.font = '700 24px "Space Mono", monospace'; ctx.fillStyle = '#FBD903'; ctx.textAlign = 'center'; ctx.fillText('GOA, INDIA', CW/2, 128); ctx.restore();
 
+  // Photo slot container
   ctx.save(); rrect(ctx, SLOT_X, SLOT_Y, SLOT_W, SLOT_H, SLOT_R); ctx.fillStyle = '#063C21'; ctx.fill();
   if (state.imageEl) {
     ctx.save(); rrect(ctx, SLOT_X, SLOT_Y, SLOT_W, SLOT_H, SLOT_R); ctx.clip();
@@ -604,22 +764,26 @@ function drawCard(canvasId) {
     ctx.drawImage(state.imageEl, -iw*s/2 + state.panX/state.zoom, -ih*s/2 + state.panY/state.zoom, iw*s, ih*s);
     ctx.restore();
   }
-  ctx.strokeStyle = '#F9D710'; ctx.lineWidth = 8; rrect(ctx, SLOT_X, SLOT_Y, SLOT_W, SLOT_H, SLOT_R); ctx.stroke(); ctx.restore();
+  ctx.strokeStyle = '#FBD903'; ctx.lineWidth = 8; rrect(ctx, SLOT_X, SLOT_Y, SLOT_W, SLOT_H, SLOT_R); ctx.stroke(); ctx.restore();
 
+  // Name
   const name = (state.name || 'YOUR NAME').toUpperCase();
-  ctx.fillStyle = '#F9D710'; ctx.textAlign = 'center'; ctx.font = '72px "Rozha One", serif'; ctx.fillText(name, CW/2, 915);
+  ctx.fillStyle = '#FBD903'; ctx.textAlign = 'center'; ctx.font = '900 72px "Source Serif 4", serif'; ctx.fillText(name, CW/2, 915);
   
+  // Role
   const role = (state.role || 'BUILDER').toUpperCase();
-  ctx.save(); ctx.font = '700 22px "JetBrains Mono", monospace'; const rW = ctx.measureText(role).width + 48;
-  ctx.fillStyle = '#FF0080'; rrect(ctx, CW/2 - rW/2, 955, rW, 42, 21); ctx.fill();
-  ctx.fillStyle = '#F9D710'; ctx.fillText(role, CW/2, 984); ctx.restore();
+  ctx.save(); ctx.font = '700 22px "Space Mono", monospace'; const rW = ctx.measureText(role).width + 48;
+  ctx.fillStyle = '#E6207C'; rrect(ctx, CW/2 - rW/2, 955, rW, 42, 21); ctx.fill();
+  ctx.fillStyle = '#FFFFFF'; ctx.fillText(role, CW/2, 984); ctx.restore();
 
+  // Shuffled Title
   const title = `⚡ ${state.title || 'SHIP-FAST OPERATOR'}`.toUpperCase();
-  ctx.save(); ctx.font = '700 18px "JetBrains Mono", monospace'; const tW = ctx.measureText(title).width + 44;
+  ctx.save(); ctx.font = '700 18px "Space Mono", monospace'; const tW = ctx.measureText(title).width + 44;
   ctx.fillStyle = '#9AC95F'; rrect(ctx, CW/2 - tW/2, 1035, tW, 42, 21); ctx.fill();
   ctx.fillStyle = '#063C21'; ctx.fillText(title, CW/2, 1063); ctx.restore();
   
-  ctx.fillStyle = 'rgba(249, 215, 16, 0.85)'; ctx.font = '500 18px "JetBrains Mono", monospace';
+  // Bottom labels
+  ctx.fillStyle = 'rgba(251, 217, 3, 0.85)'; ctx.font = '700 18px "Space Mono", monospace';
   ctx.textAlign = 'left'; ctx.fillText('#FrameInGoa', SLOT_X, CH - 94);
   ctx.textAlign = 'right'; ctx.fillText('28 – 31 OCT 2026', CW - SLOT_X, CH - 94);
 }
@@ -694,8 +858,6 @@ $('inp-role').addEventListener('input', e => {
   state.role = e.target.value;
   scheduleRedraw();
 });
-
-
 
 // Shuffle/Click on Builder Title trigger
 $('title-trigger-pill').addEventListener('click', () => {
