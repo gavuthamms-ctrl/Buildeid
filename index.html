@@ -707,10 +707,21 @@ async function processFile(file) {
 }
 
 const CW = 1080, CH = 1350;
-const SLOT_X = 84, SLOT_Y = 180, SLOT_W = CW - 168, SLOT_H = 640, SLOT_R = 40;
+const SLOT_X = 84, SLOT_Y = 240, SLOT_W = CW - 168, SLOT_H = 600, SLOT_R = 40;
 
 function rrect(ctx, x, y, w, h, r) {
   ctx.beginPath(); ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r); ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h); ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r); ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y); ctx.closePath();
+}
+
+function getBuilderNumber(name) {
+  if (!name) return '0000';
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = (hash << 5) - hash + name.charCodeAt(i);
+    hash |= 0;
+  }
+  const num = Math.abs(hash) % 247 + 1;
+  return String(num).padStart(4, '0');
 }
 
 function drawCard(canvasId) {
@@ -751,8 +762,30 @@ function drawCard(canvasId) {
   drawCornerBotanical(CW - 52, CH - 52, Math.PI); 
   drawCornerBotanical(52, CH - 52, Math.PI*3/2);
 
-  // Top header text
-  ctx.save(); ctx.font = '700 24px "Space Mono", monospace'; ctx.fillStyle = '#FBD903'; ctx.textAlign = 'center'; ctx.fillText('GOA, INDIA', CW/2, 128); ctx.restore();
+  // LOCATOR LINE (small kicker above header)
+  ctx.save();
+  ctx.font = '700 18px "Space Mono", monospace';
+  ctx.fillStyle = '#FBD903';
+  ctx.textAlign = 'center';
+  ctx.letterSpacing = '4px';
+  ctx.fillText('GOA, INDIA', CW/2, 100);
+  ctx.restore();
+
+  // EVENT TITLE WORDMARK: "HACKER HOUSE"
+  ctx.save();
+  ctx.fillStyle = '#FBD903';
+  ctx.textAlign = 'center';
+  ctx.font = '900 64px "Source Serif 4", serif';
+  ctx.fillText('HACKER HOUSE', CW/2, 160);
+  ctx.restore();
+
+  // EDITION / SCALE MARKER: "2026 EDITION"
+  ctx.save();
+  ctx.font = '700 14px "Space Mono", monospace';
+  ctx.fillStyle = '#9AC95F';
+  ctx.textAlign = 'center';
+  ctx.fillText('2026 EDITION  //  247 SELECT BUILDERS', CW/2, 195);
+  ctx.restore();
 
   // Photo slot container
   ctx.save(); rrect(ctx, SLOT_X, SLOT_Y, SLOT_W, SLOT_H, SLOT_R); ctx.fillStyle = '#063C21'; ctx.fill();
@@ -768,19 +801,28 @@ function drawCard(canvasId) {
 
   // Name
   const name = (state.name || 'YOUR NAME').toUpperCase();
-  ctx.fillStyle = '#FBD903'; ctx.textAlign = 'center'; ctx.font = '900 72px "Source Serif 4", serif'; ctx.fillText(name, CW/2, 915);
+  ctx.fillStyle = '#FBD903'; ctx.textAlign = 'center'; ctx.font = '900 68px "Source Serif 4", serif'; ctx.fillText(name, CW/2, 915);
   
   // Role
   const role = (state.role || 'BUILDER').toUpperCase();
   ctx.save(); ctx.font = '700 22px "Space Mono", monospace'; const rW = ctx.measureText(role).width + 48;
-  ctx.fillStyle = '#E6207C'; rrect(ctx, CW/2 - rW/2, 955, rW, 42, 21); ctx.fill();
-  ctx.fillStyle = '#FFFFFF'; ctx.fillText(role, CW/2, 984); ctx.restore();
+  ctx.fillStyle = '#E6207C'; rrect(ctx, CW/2 - rW/2, 950, rW, 42, 21); ctx.fill();
+  ctx.fillStyle = '#FFFFFF'; ctx.fillText(role, CW/2, 979); ctx.restore();
 
   // Shuffled Title
   const title = `⚡ ${state.title || 'SHIP-FAST OPERATOR'}`.toUpperCase();
   ctx.save(); ctx.font = '700 18px "Space Mono", monospace'; const tW = ctx.measureText(title).width + 44;
-  ctx.fillStyle = '#9AC95F'; rrect(ctx, CW/2 - tW/2, 1035, tW, 42, 21); ctx.fill();
-  ctx.fillStyle = '#063C21'; ctx.fillText(title, CW/2, 1063); ctx.restore();
+  ctx.fillStyle = '#9AC95F'; rrect(ctx, CW/2 - tW/2, 1025, tW, 42, 21); ctx.fill();
+  ctx.fillStyle = '#063C21'; ctx.fillText(title, CW/2, 1053); ctx.restore();
+
+  // BUILDER ID NUMBER: e.g. "BUILDER NO. 0142"
+  const bNum = getBuilderNumber(state.name);
+  ctx.save();
+  ctx.font = '700 16px "Space Mono", monospace';
+  ctx.fillStyle = '#9AC95F';
+  ctx.textAlign = 'center';
+  ctx.fillText(`COHORT CODES // BUILDER NO. ${bNum}`, CW/2, 1130);
+  ctx.restore();
   
   // Bottom labels
   ctx.fillStyle = 'rgba(251, 217, 3, 0.85)'; ctx.font = '700 18px "Space Mono", monospace';
