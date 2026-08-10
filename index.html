@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <meta name="theme-color" content="#1a0533" />
+  <meta name="theme-color" content="#0B6839" />
   <title>HH Goa 2026 — Builder ID Card Generator</title>
   <meta name="description" content="Create your personal Builder ID card for Hacker House Goa 2026. Upload a photo, fill 3 fields, share on X with #FrameInGoa." />
   <meta property="og:title" content="HH Goa 2026 — Builder ID Card Generator" />
@@ -12,279 +12,287 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="HH Goa 2026 — Builder ID Card Generator" />
   <meta name="twitter:description" content="Make your Builder ID card for Hacker House Goa 2026 in 15 seconds." />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  
   <style>
-    /* ─── RESET ──────────────────────────────────────────────── */
+    /* ─── RESET & SYSTEM VARIABLES ──────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --coral:       #ff6b6b;
-      --amber:       #ffa040;
-      --teal:        #006994;
-      --deep-purple: #1a0533;
-      --accent-lime: #00e5a0;
-      --accent-cyan: #00b8d4;
+      --bg-dark:     #063C21;
+      --emerald:     #0B6839;
+      --gold:        #F9D710;
+      --pink:        #FF0080;
+      --sage:        #9AC95F;
       --white:       #ffffff;
-      --text-dim:    rgba(255,255,255,0.6);
-      --glass:       rgba(255,255,255,0.07);
-      --glass-border:rgba(255,255,255,0.14);
-      --font-d: 'Space Grotesk', 'Arial Black', sans-serif;
-      --font-m: 'JetBrains Mono', 'Courier New', monospace;
+      --text-dim:    rgba(255, 255, 255, 0.65);
+      --glass:       rgba(255, 255, 255, 0.08);
+      --glass-border:rgba(255, 255, 255, 0.16);
+      --font-display: 'Rozha One', serif;
+      --font-mono:    'JetBrains Mono', monospace;
     }
+    
     html { font-size: 16px; -webkit-text-size-adjust: 100%; }
     body {
-      font-family: var(--font-d);
-      background: linear-gradient(160deg, #0d0220 0%, #2c0e3e 30%, #5c1a3a 60%, #0a2a4a 100%);
+      font-family: var(--font-mono);
+      background-color: var(--bg-dark);
+      background-image: linear-gradient(135deg, #063C21 0%, #0B6839 100%);
       background-attachment: fixed;
       min-height: 100dvh;
       color: var(--white);
       overflow-x: hidden;
     }
+    
     body::before {
       content: '';
       position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.04; pointer-events: none; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035; pointer-events: none; z-index: 0;
     }
 
-    /* ─── LAYOUT ─────────────────────────────────────────────── */
+    /* ─── LAYOUT & CONTAINERS ───────────────────────────────── */
     #app {
       position: relative; z-index: 1;
       display: flex; flex-direction: column; align-items: center;
       min-height: 100dvh;
-      padding: 28px 20px 72px;
+      padding: 24px 16px 64px;
       max-width: 480px;
       margin: 0 auto;
-      gap: 0;
     }
 
-    /* ─── TYPOGRAPHY UTILS ───────────────────────────────────── */
-    .mono { font-family: var(--font-m); }
     .gradient-text {
-      background: linear-gradient(100deg, var(--coral), var(--amber), var(--accent-lime));
+      background: linear-gradient(100deg, var(--gold), var(--sage), #fff);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    /* ─── BUTTONS ────────────────────────────────────────────── */
+    /* ─── BUTTONS & INTERACTIVE ELEMENTS ───────────────────── */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 15px 28px; border: none; border-radius: 50px;
-      font-family: var(--font-d); font-size: 1rem; font-weight: 700;
+      padding: 14px 28px; border: none; border-radius: 50px;
+      font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700;
       cursor: pointer; min-height: 54px; width: 100%;
       transition: transform .15s, box-shadow .15s, opacity .15s;
-      letter-spacing: .01em;
+      letter-spacing: 0.02em;
     }
     .btn:active { transform: scale(.97); opacity: .9; }
-    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-primary {
-      background: linear-gradient(100deg, var(--coral), var(--amber));
-      color: #fff;
-      box-shadow: 0 4px 28px rgba(255,120,60,.45);
+      background: linear-gradient(100deg, var(--gold), var(--sage));
+      color: var(--bg-dark);
+      box-shadow: 0 4px 24px rgba(249, 215, 16, 0.25);
     }
-    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(255,120,60,.55); }
+    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(249, 215, 16, 0.35); }
     .btn-secondary {
       background: var(--glass); color: var(--white);
       border: 1px solid var(--glass-border);
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     }
-    .btn-secondary:hover { background: rgba(255,255,255,.12); transform: translateY(-1px); }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.12); transform: translateY(-1px); }
     .btn-share {
-      background: linear-gradient(100deg,#1a1a2e,#0f3460);
-      color: #fff; box-shadow: 0 4px 24px rgba(10,20,60,.6);
+      background: var(--pink);
+      color: #fff; box-shadow: 0 4px 20px rgba(255, 0, 128, 0.3);
     }
-    .btn-share:hover:not(:disabled) { box-shadow: 0 8px 36px rgba(10,20,80,.7); transform: translateY(-2px); }
+    .btn-share:hover:not(:disabled) { box-shadow: 0 8px 28px rgba(255, 0, 128, 0.45); transform: translateY(-2px); }
     .btn-back {
       background: none; border: none; color: var(--text-dim);
-      font-family: var(--font-m); font-size: .84rem; cursor: pointer;
-      padding: 4px 0; align-self: flex-start; margin-bottom: 4px;
+      font-family: var(--font-mono); font-size: 0.85rem; cursor: pointer;
+      padding: 4px 0; align-self: flex-start; margin-bottom: 8px;
       transition: color .15s;
     }
     .btn-back:hover { color: var(--white); }
 
-    /* ─── SCREENS ────────────────────────────────────────────── */
+    /* ─── SCREENS & ANIMATIONS ──────────────────────────────── */
     .screen {
       display: none; flex-direction: column;
       align-items: center; gap: 20px; width: 100%;
     }
     .screen.active { display: flex; }
 
-    /* ─── LANDING ────────────────────────────────────────────── */
-    #landing { padding-top: 16px; text-align: center; }
+    /* ─── LANDING SCREEN ────────────────────────────────────── */
+    #landing { padding-top: 12px; text-align: center; }
 
     .badge-tag {
       display: inline-block;
       padding: 6px 18px;
-      border: 1px solid rgba(255,200,100,.5);
+      border: 1px solid var(--gold);
       border-radius: 50px;
-      font-family: var(--font-m); font-size: .76rem;
-      color: rgba(255,200,100,.9);
-      letter-spacing: .07em; text-transform: uppercase;
-      background: rgba(255,160,64,.1);
+      font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: rgba(249, 215, 16, 0.1);
+      margin-bottom: 4px;
     }
 
     .h1 {
-      font-size: clamp(2rem, 9vw, 2.9rem);
-      font-weight: 700; line-height: 1.1; letter-spacing: -.02em;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 9vw, 3rem);
+      font-weight: 400; line-height: 1.1; letter-spacing: -0.01em;
     }
 
     .sub {
-      color: var(--text-dim); font-size: 1rem; line-height: 1.55;
-      max-width: 300px;
+      color: var(--text-dim); font-size: 0.95rem; line-height: 1.6;
+      max-width: 330px;
     }
 
-    /* Demo card */
-    .demo-wrap { position: relative; width: 240px; }
+    /* Landing card preview mockup */
+    .demo-wrap { position: relative; width: 240px; margin: 12px 0; }
     .demo-card {
       width: 240px;
-      background: linear-gradient(160deg, #1a0533 0%, #4a1942 50%, #0d3b5e 100%);
-      border: 1px solid rgba(255,200,100,.3);
-      border-radius: 20px;
-      padding: 16px 14px;
-      display: flex; flex-direction: column; gap: 10px;
-      animation: cardGlow 4s ease-in-out infinite;
+      height: 300px;
+      background-color: var(--emerald);
+      border: 4px solid var(--gold);
+      border-radius: 8px;
+      padding: 16px 12px;
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+      position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      animation: floatEffect 5s ease-in-out infinite;
     }
-    @keyframes cardGlow {
-      0%,100% { box-shadow: 0 0 30px rgba(255,120,60,.2), 0 0 60px rgba(0,150,200,.08); }
-      50%      { box-shadow: 0 0 55px rgba(255,120,60,.38), 0 0 90px rgba(0,150,200,.18); }
+    @keyframes floatEffect {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
     }
+    
     .demo-hdr {
-      display: flex; justify-content: space-between; align-items: center;
-      font-family: var(--font-m); font-size: .66rem;
-      color: rgba(255,255,255,.7);
-      border-bottom: 1px solid rgba(255,200,100,.15);
-      padding-bottom: 8px;
+      font-family: var(--font-mono); font-size: 0.55rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 2px;
     }
     .demo-slot {
-      background: rgba(255,255,255,.06);
-      border-radius: 11px; height: 112px;
+      width: 100%; height: 130px;
+      background-color: var(--bg-dark);
+      border: 2px solid var(--gold);
+      border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
-      border: 1px solid rgba(255,200,100,.18);
-      font-size: 2.4rem;
+      font-size: 2.2rem;
     }
-    .demo-texts { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-    .demo-name  { font-size: .95rem; font-weight: 700; }
-    .demo-role  { font-family: var(--font-m); font-size: .6rem; color: rgba(255,210,130,.9); }
+    .demo-texts { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; }
+    .demo-name  { font-family: var(--font-display); font-size: 1.1rem; color: var(--gold); }
     .demo-pill  {
-      background: linear-gradient(100deg,var(--accent-lime),var(--accent-cyan));
-      color: #000; font-family: var(--font-m); font-size: .58rem; font-weight: 600;
+      background-color: var(--pink);
+      color: var(--gold); font-family: var(--font-mono); font-size: 0.5rem; font-weight: 700;
       padding: 3px 10px; border-radius: 50px;
     }
     .demo-footer {
-      text-align: center; font-family: var(--font-m); font-size: .57rem;
-      color: rgba(255,255,255,.35);
-      border-top: 1px solid rgba(255,255,255,.07); padding-top: 8px;
+      display: flex; justify-content: space-between; width: 100%;
+      font-family: var(--font-mono); font-size: 0.45rem;
+      color: rgba(249, 215, 16, 0.8);
     }
-    .demo-glow {
-      position: absolute; bottom: -36px; left: 50%; transform: translateX(-50%);
-      width: 200px; height: 70px;
-      background: radial-gradient(ellipse, rgba(255,120,60,.22) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .landing-hint { font-family: var(--font-m); font-size: .74rem; color: var(--text-dim); }
+    .landing-hint { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); }
 
-    /* ─── UPLOAD ─────────────────────────────────────────────── */
+    /* ─── UPLOAD SCREEN ─────────────────────────────────────── */
     .section-h2 {
-      font-size: 1.75rem; font-weight: 700; letter-spacing: -.02em;
+      font-family: var(--font-display);
+      font-size: 2rem; font-weight: 400;
       align-self: flex-start;
+      color: var(--gold);
     }
-    .section-sub { color: var(--text-dim); font-size: .95rem; align-self: flex-start; margin-top: -12px; }
+    .section-sub { color: var(--text-dim); font-size: 0.95rem; align-self: flex-start; margin-top: -12px; }
 
     .dropzone {
       display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 10px;
-      padding: 52px 20px; min-height: 200px; width: 100%;
+      align-items: center; justify-content: center; gap: 12px;
+      padding: 48px 24px; min-height: 220px; width: 100%;
       background: var(--glass);
-      border: 2px dashed rgba(255,200,100,.3);
-      border-radius: 20px; cursor: pointer;
-      transition: border-color .2s, background .2s;
+      border: 2px dashed var(--gold);
+      border-radius: 16px; cursor: pointer;
+      transition: border-color 0.2s, background-color 0.2s;
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     }
     .dropzone:hover, .dropzone.drag-over {
-      border-color: rgba(255,200,100,.7);
-      background: rgba(255,160,64,.1);
+      border-color: var(--white);
+      background-color: rgba(255, 255, 255, 0.05);
     }
-    .dz-icon { font-size: 2.6rem; }
-    .dz-text { font-size: 1rem; font-weight: 600; }
-    .dz-hint { font-size: .76rem; color: var(--text-dim); font-family: var(--font-m); }
+    .dz-icon { font-size: 2.8rem; }
+    .dz-text { font-size: 1.05rem; font-weight: 700; text-align: center; }
+    .dz-hint { font-size: 0.78rem; color: var(--text-dim); font-family: var(--font-mono); }
 
     .error-box {
       padding: 12px 16px; width: 100%;
-      background: rgba(255,60,60,.14);
-      border: 1px solid rgba(255,60,60,.3);
-      border-radius: 12px; font-size: .86rem;
-      color: #ff9e9e; font-family: var(--font-m);
+      background: rgba(255, 0, 128, 0.15);
+      border: 1px solid var(--pink);
+      border-radius: 8px; font-size: 0.85rem;
+      color: #ffb3d9; font-family: var(--font-mono);
     }
 
-    /* ─── DETAILS ────────────────────────────────────────────── */
+    /* ─── DETAILS SCREEN ────────────────────────────────────── */
     .preview-wrap {
-      width: 100%; border-radius: 16px; overflow: hidden;
-      border: 1px solid rgba(255,200,100,.2);
-      box-shadow: 0 8px 44px rgba(0,0,0,.55);
+      width: 100%; border-radius: 8px; overflow: hidden;
+      border: 3px solid var(--gold);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      position: relative;
     }
-    #card-canvas { display: block; width: 100%; height: auto; }
+    #card-canvas { display: block; width: 100%; height: auto; cursor: grab; }
+    #card-canvas:active { cursor: grabbing; }
+
+    .control-hint {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      font-size: 0.72rem; color: var(--gold); margin-top: -8px; opacity: 0.9;
+      font-family: var(--font-mono); background: rgba(0,0,0,0.3); padding: 4px 12px; border-radius: 50px;
+    }
 
     .form-group { display: flex; flex-direction: column; gap: 6px; width: 100%; position: relative; }
-    .form-label { font-family: var(--font-m); font-size: .73rem; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,200,100,.8); }
+    .form-label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
     .form-input {
       background: var(--glass); border: 1px solid var(--glass-border);
-      border-radius: 12px; padding: 14px 16px;
-      color: var(--white); font-family: var(--font-d); font-size: 1rem;
+      border-radius: 8px; padding: 14px 16px;
+      color: var(--white); font-family: var(--font-mono); font-size: 0.95rem;
       outline: none; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
       transition: border-color .2s, box-shadow .2s; width: 100%; min-height: 52px;
     }
-    .form-input::placeholder { color: rgba(255,255,255,.32); }
-    .form-input:focus { border-color: rgba(255,200,100,.5); box-shadow: 0 0 0 3px rgba(255,200,100,.12); }
+    .form-input::placeholder { color: rgba(255,255,255,0.3); }
+    .form-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(249, 215, 16, 0.15); }
     .char-count {
-      position: absolute; right: 14px; bottom: 14px;
-      font-size: .68rem; color: var(--text-dim); font-family: var(--font-m);
+      position: absolute; right: 14px; bottom: 16px;
+      font-size: 0.7rem; color: var(--text-dim); font-family: var(--font-mono);
       pointer-events: none;
     }
     .title-row { display: flex; gap: 10px; align-items: stretch; width: 100%; }
     .title-row .form-input { flex: 1; }
     .btn-shuffle {
       background: var(--glass); border: 1px solid var(--glass-border);
-      border-radius: 12px; padding: 0 18px; font-size: 1.3rem;
-      cursor: pointer; min-height: 52px; min-width: 54px;
+      border-radius: 8px; padding: 0 16px; font-size: 1.25rem;
+      cursor: pointer; min-height: 52px; min-width: 52px;
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      transition: background .15s, transform .15s;
+      transition: background-color 0.15s, transform 0.15s;
     }
-    .btn-shuffle:hover { background: rgba(255,200,100,.15); transform: rotate(30deg); }
+    .btn-shuffle:hover { background-color: rgba(249, 215, 16, 0.15); transform: rotate(30deg); }
     .btn-shuffle:active { transform: rotate(180deg) scale(.9); }
 
-    /* ─── RESULT ─────────────────────────────────────────────── */
+    /* ─── RESULT SCREEN ─────────────────────────────────────── */
     #result { text-align: center; }
     #result .section-h2 { align-self: center; }
 
     .action-row { display: flex; gap: 12px; width: 100%; }
     .action-row .btn-secondary { flex: 1; }
-    .action-row .btn-share     { flex: 1.5; }
+    .action-row .btn-share     { flex: 1.4; }
 
     .caption-box {
       width: 100%; background: var(--glass);
       border: 1px solid var(--glass-border);
-      border-radius: 16px; padding: 16px;
+      border-radius: 12px; padding: 16px;
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       text-align: left;
     }
-    .caption-lbl { font-family: var(--font-m); font-size: .7rem; color: rgba(255,200,100,.7); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 8px; }
-    .caption-txt { font-size: .88rem; color: rgba(255,255,255,.8); line-height: 1.6; }
+    .caption-lbl { font-family: var(--font-mono); font-size: 0.7rem; color: var(--gold); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; font-weight: 700; }
+    .caption-txt { font-size: 0.85rem; color: rgba(255,255,255,0.9); line-height: 1.55; }
 
     .shared-msg {
       width: 100%; padding: 14px 18px;
-      background: rgba(0,229,160,.08); border: 1px solid rgba(0,229,160,.22);
-      border-radius: 14px; font-size: .93rem; color: var(--accent-lime); text-align: center;
+      background: rgba(154, 201, 95, 0.12); border: 1px solid var(--sage);
+      border-radius: 12px; font-size: 0.9rem; color: var(--sage); text-align: center;
     }
     .btn-another {
-      background: none; border: none; color: var(--accent-lime);
-      font-family: var(--font-d); font-weight: 600; font-size: .93rem;
+      background: none; border: none; color: var(--gold);
+      font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem;
       cursor: pointer; text-decoration: underline; padding: 0;
     }
 
-    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    /* ─── RESPONSIVE ────────────────────────────────────────── */
     @media (min-width: 600px) {
-      #app { padding-top: 48px; }
+      #app { padding-top: 40px; }
     }
   </style>
 </head>
@@ -296,28 +304,26 @@
     <div class="badge-tag">🏝️ Hacker House Goa 2026</div>
 
     <h1 class="h1">Build your<br /><span class="gradient-text">Builder ID Card</span></h1>
-    <p class="sub">Upload a photo. Fill 3 fields. Get a card to flex on X.</p>
+    <p class="sub">Upload a photo. Fill details. Get a premium card to share on X.</p>
 
     <!-- Animated demo card -->
     <div class="demo-wrap">
       <div class="demo-card">
-        <div class="demo-hdr">
-          <span class="mono">HH GOA 2026</span>
-          <span style="color:rgba(255,200,100,.9)">⚡ #247</span>
-        </div>
+        <div class="demo-hdr">GOA, INDIA</div>
         <div class="demo-slot">🧑‍💻</div>
         <div class="demo-texts">
-          <div class="demo-name">Your Name Here</div>
-          <div class="demo-role">Full‑Stack · Solana</div>
-          <div class="demo-pill">⚡ Ship‑Fast Operator</div>
+          <div class="demo-name">ARJUN KUMAR</div>
+          <div class="demo-pill">BUILDER</div>
         </div>
-        <div class="demo-footer">#FrameInGoa · 28‑31 Oct · Goa, India</div>
+        <div class="demo-footer">
+          <span>#FrameInGoa</span>
+          <span>28 – 31 OCT 2026</span>
+        </div>
       </div>
       <div class="demo-glow"></div>
     </div>
 
     <button class="btn btn-primary" id="cta-btn">Make My Builder ID →</button>
-    <p class="landing-hint mono">No login · No signup · 15 seconds flat</p>
   </section>
 
   <!-- ══ UPLOAD ═════════════════════════════════════════════════ -->
@@ -342,6 +348,10 @@
 
     <div class="preview-wrap">
       <canvas id="card-canvas" width="1080" height="1350"></canvas>
+    </div>
+    
+    <div class="control-hint">
+      🖐️ Drag to reposition photo &nbsp;&bull;&nbsp; 🔍 Pinch/Scroll to zoom
     </div>
 
     <div class="form-group">
@@ -373,7 +383,6 @@
     <h2 class="section-h2">Your Builder ID is ready 🎉</h2>
 
     <div class="preview-wrap">
-      <!-- Result uses same canvas – moved here by JS -->
       <canvas id="result-canvas" width="1080" height="1350"></canvas>
     </div>
 
@@ -395,12 +404,7 @@
 
 </div><!-- #app -->
 
-<!-- ════ HEIC2ANY (lazy-loaded) ═══════════════════════════════════ -->
 <script>
-/* ────────────────────────────────────────────────────────────────
-   HH Goa 2026 Builder ID — Client-side App
-   ──────────────────────────────────────────────────────────────── */
-
 const BUILDER_TITLES = [
   'Ship‑Fast Operator','Vibe Debugger','Full‑Stack Wave Rider',
   'Pixel Surfer','Code Tide Keeper','Quantum Builder',
@@ -414,18 +418,22 @@ const BUILDER_TITLES = [
   'git push ‑‑force Survivor','Recursive Dreamer','MVP Maximalist'
 ];
 
-/* ── State ──────────────────────────────────────────────────── */
 let state = {
-  imageBlob: null,    // processed image Blob
-  imageSrc:  '',      // object URL
-  imageEl:   null,    // HTMLImageElement
+  imageBlob: null,
+  imageSrc:  '',
+  imageEl:   null,
   name:      '',
   role:      '',
   title:     BUILDER_TITLES[0],
   drawTimer: null,
+  zoom: 1.0,
+  panX: 0,
+  panY: 0,
+  isDragging: false,
+  startX: 0,
+  startY: 0
 };
 
-/* ── DOM refs ───────────────────────────────────────────────── */
 const $ = id => document.getElementById(id);
 const screens = {
   landing: $('landing'),
@@ -434,21 +442,18 @@ const screens = {
   result:  $('result'),
 };
 
-/* ── Screen navigation ──────────────────────────────────────── */
 function showScreen(name) {
   Object.values(screens).forEach(s => s.classList.remove('active'));
   screens[name].classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ── Error helpers ──────────────────────────────────────────── */
 function showError(id, msg) {
   const el = $(id);
   el.textContent = msg;
   el.style.display = msg ? 'block' : 'none';
 }
 
-/* ── Title shuffle ──────────────────────────────────────────── */
 function randomTitle(current) {
   let t;
   do { t = BUILDER_TITLES[Math.floor(Math.random() * BUILDER_TITLES.length)]; }
@@ -456,28 +461,14 @@ function randomTitle(current) {
   return t;
 }
 
-/* ── Image processing ───────────────────────────────────────── */
 async function processFile(file) {
   showError('upload-error', '');
   if (!file) return;
 
-  const isImage = file.type.startsWith('image/');
-  const isHeic  = file.type === 'image/heic' || file.type === 'image/heif'
-               || file.name.toLowerCase().endsWith('.heic')
-               || file.name.toLowerCase().endsWith('.heif');
-  if (!isImage && !isHeic) {
-    showError('upload-error', '⚠ Please select a valid image file (JPG, PNG, or HEIC).');
-    return;
-  }
-  if (file.size > 25 * 1024 * 1024) {
-    showError('upload-error', '⚠ File too large. Please choose an image under 25 MB.');
-    return;
-  }
-
+  const isHeic  = file.type === 'image/heic' || file.name.toLowerCase().endsWith('.heic');
   try {
     let blob = file;
     if (isHeic) {
-      // Lazy-load heic2any via CDN
       if (!window.heic2any) {
         await new Promise((res, rej) => {
           const s = document.createElement('script');
@@ -489,333 +480,88 @@ async function processFile(file) {
       blob = await window.heic2any({ blob: file, toType: 'image/jpeg', quality: 0.92 });
       if (Array.isArray(blob)) blob = blob[0];
     }
-
-    // Downscale if image is very large (protect canvas memory)
     const img = new Image();
     const url = URL.createObjectURL(blob);
     await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = url; });
-
-    let finalBlob = blob;
-    if (img.naturalWidth > 1800 || img.naturalHeight > 1800) {
-      const MAX = 1500;
-      const scale = Math.min(MAX / img.naturalWidth, MAX / img.naturalHeight);
-      const oc = document.createElement('canvas');
-      oc.width  = Math.round(img.naturalWidth  * scale);
-      oc.height = Math.round(img.naturalHeight * scale);
-      oc.getContext('2d').drawImage(img, 0, 0, oc.width, oc.height);
-      finalBlob = await new Promise(res => oc.toBlob(res, 'image/jpeg', 0.92));
-      URL.revokeObjectURL(url);
-    }
-
-    if (state.imageSrc) URL.revokeObjectURL(state.imageSrc);
-    state.imageSrc  = URL.createObjectURL(finalBlob);
-    state.imageBlob = finalBlob;
-    const imgEl = new Image();
-    imgEl.src = state.imageSrc;
-    await new Promise((res, rej) => { imgEl.onload = res; imgEl.onerror = rej; });
-    state.imageEl = imgEl;
-
+    state.imageSrc  = url;
+    state.imageBlob = blob;
+    state.imageEl = img;
+    state.zoom = 1.0; state.panX = 0; state.panY = 0;
     showScreen('details');
     scheduleRedraw(true);
   } catch (e) {
-    console.error(e);
-    showError('upload-error', '⚠ Could not read this image. It may be corrupt — please try another file.');
+    showError('upload-error', '⚠ Could not read this image.');
   }
 }
 
-/* ─────────────────────────────────────────────────────────────
-   CANVAS RENDERER
-   1080 × 1350 (portrait 4:5)
-   ──────────────────────────────────────────────────────────── */
 const CW = 1080, CH = 1350;
-const SLOT_X = 54, SLOT_Y = 120, SLOT_W = CW - 108, SLOT_H = Math.floor(CH * 0.52), SLOT_R = 28;
-
-function coverSrc(iW, iH, sW, sH) {
-  const ir = iW / iH, sr = sW / sH;
-  if (ir > sr) {
-    const sh = iH, sw = sr * iH;
-    return { sx: (iW - sw) / 2, sy: 0, sw, sh };
-  } else {
-    const sw = iW, sh = iW / sr;
-    return { sx: 0, sy: (iH - sh) / 2, sw, sh };
-  }
-}
+const SLOT_X = 84, SLOT_Y = 180, SLOT_W = CW - 168, SLOT_H = 640, SLOT_R = 40;
 
 function rrect(ctx, x, y, w, h, r) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.lineTo(x + w - r, y);
-  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-  ctx.lineTo(x + w, y + h - r);
-  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-  ctx.lineTo(x + r, y + h);
-  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-  ctx.lineTo(x, y + r);
-  ctx.quadraticCurveTo(x, y, x + r, y);
-  ctx.closePath();
-}
-
-function autoFont(ctx, text, maxW, startSz, minSz, weight, family) {
-  let sz = startSz;
-  ctx.font = `${weight} ${sz}px ${family}`;
-  while (ctx.measureText(text).width > maxW && sz > minSz) {
-    sz -= 2;
-    ctx.font = `${weight} ${sz}px ${family}`;
-  }
-  return sz;
+  ctx.beginPath(); ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r); ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h); ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r); ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y); ctx.closePath();
 }
 
 function drawCard(canvasId) {
-  const canvas = $(canvasId);
-  if (!canvas || !state.imageEl) return;
-  const ctx = canvas.getContext('2d');
+  const canvas = $(canvasId); if (!canvas) return; const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#0B6839'; ctx.fillRect(0, 0, CW, CH);
+  ctx.strokeStyle = '#F9D710'; ctx.lineWidth = 18; ctx.strokeRect(9, 9, CW - 18, CH - 18);
+  ctx.save(); ctx.strokeStyle = '#FF0080'; ctx.lineWidth = 2; ctx.setLineDash([4, 6]); ctx.strokeRect(28, 28, CW - 56, CH - 56); ctx.restore();
+  
+  const drawCorner = (x, y, r) => {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(r); ctx.fillStyle = '#9AC95F';
+    ctx.beginPath(); ctx.ellipse(22, 22, 8, 14, Math.PI/4, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#F9D710'; ctx.beginPath(); ctx.arc(38, 38, 5, 0, Math.PI*2); ctx.fill(); ctx.restore();
+  };
+  drawCorner(40, 40, 0); drawCorner(CW-40, 40, Math.PI/2); drawCorner(CW-40, CH-40, Math.PI); drawCorner(40, CH-40, Math.PI*3/2);
 
-  // ── BACKGROUND ──────────────────────────────────────────────
-  const bg = ctx.createLinearGradient(0, 0, CW * 0.5, CH);
-  bg.addColorStop(0,   '#0f0224');
-  bg.addColorStop(0.4, '#3d1238');
-  bg.addColorStop(0.7, '#7a1e4a');
-  bg.addColorStop(1,   '#092240');
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, CW, CH);
+  ctx.save(); ctx.font = '500 24px "JetBrains Mono", monospace'; ctx.fillStyle = '#F9D710'; ctx.textAlign = 'center'; ctx.fillText('GOA, INDIA', CW/2, 128); ctx.restore();
 
-  // Warm horizon glow
-  const hg = ctx.createRadialGradient(CW/2, SLOT_Y+SLOT_H, 0, CW/2, SLOT_Y+SLOT_H, CW*0.85);
-  hg.addColorStop(0, 'rgba(255,140,50,0.32)');
-  hg.addColorStop(0.5,'rgba(255,80,80,0.1)');
-  hg.addColorStop(1, 'rgba(0,0,0,0)');
-  ctx.fillStyle = hg; ctx.fillRect(0, 0, CW, CH);
-
-  // ── SUBTLE WAVE LINES ────────────────────────────────────────
-  ctx.save();
-  ctx.strokeStyle = 'rgba(255,255,255,0.055)';
-  ctx.lineWidth = 2.5;
-  for (let i = 0; i < 7; i++) {
-    const yo = SLOT_Y + SLOT_H + 30 + i * 56;
-    ctx.beginPath(); ctx.moveTo(0, yo);
-    for (let x = 0; x <= CW; x += 80) {
-      ctx.quadraticCurveTo(x + 40, yo + (i % 2 === 0 ? 22 : -22), x + 80, yo);
-    }
-    ctx.stroke();
+  ctx.save(); rrect(ctx, SLOT_X, SLOT_Y, SLOT_W, SLOT_H, SLOT_R); ctx.fillStyle = '#063C21'; ctx.fill();
+  if (state.imageEl) {
+    ctx.save(); rrect(ctx, SLOT_X, SLOT_Y, SLOT_W, SLOT_H, SLOT_R); ctx.clip();
+    const iw = state.imageEl.naturalWidth, ih = state.imageEl.naturalHeight;
+    const s = Math.max(SLOT_W/iw, SLOT_H/ih);
+    ctx.translate(SLOT_X + SLOT_W/2, SLOT_Y + SLOT_H/2); ctx.scale(state.zoom, state.zoom);
+    ctx.drawImage(state.imageEl, -iw*s/2 + state.panX/state.zoom, -ih*s/2 + state.panY/state.zoom, iw*s, ih*s);
+    ctx.restore();
   }
-  ctx.restore();
+  ctx.strokeStyle = '#F9D710'; ctx.lineWidth = 8; rrect(ctx, SLOT_X, SLOT_Y, SLOT_W, SLOT_H, SLOT_R); ctx.stroke(); ctx.restore();
 
-  // ── PHOTO SLOT ───────────────────────────────────────────────
-  ctx.save();
-  rrect(ctx, SLOT_X, SLOT_Y, SLOT_W, SLOT_H, SLOT_R);
-  ctx.clip();
+  const name = (state.name || 'YOUR NAME').toUpperCase();
+  ctx.fillStyle = '#F9D710'; ctx.textAlign = 'center'; ctx.font = '72px "Rozha One", serif'; ctx.fillText(name, CW/2, 915);
+  
+  const role = (state.role || 'BUILDER').toUpperCase();
+  ctx.save(); ctx.font = '700 22px "JetBrains Mono", monospace'; const rW = ctx.measureText(role).width + 48;
+  ctx.fillStyle = '#FF0080'; rrect(ctx, CW/2 - rW/2, 955, rW, 42, 21); ctx.fill();
+  ctx.fillStyle = '#F9D710'; ctx.fillText(role, CW/2, 984); ctx.restore();
 
-  const { sx, sy, sw, sh } = coverSrc(state.imageEl.naturalWidth, state.imageEl.naturalHeight, SLOT_W, SLOT_H);
-  ctx.drawImage(state.imageEl, sx, sy, sw, sh, SLOT_X, SLOT_Y, SLOT_W, SLOT_H);
-
-  // Inner vignette
-  const vg = ctx.createLinearGradient(0, SLOT_Y + SLOT_H*0.58, 0, SLOT_Y + SLOT_H);
-  vg.addColorStop(0, 'rgba(0,0,0,0)');
-  vg.addColorStop(1, 'rgba(0,0,0,0.5)');
-  ctx.fillStyle = vg; ctx.fillRect(SLOT_X, SLOT_Y, SLOT_W, SLOT_H);
-  ctx.restore();
-
-  // Photo border glow
-  ctx.save();
-  rrect(ctx, SLOT_X, SLOT_Y, SLOT_W, SLOT_H, SLOT_R);
-  ctx.strokeStyle = 'rgba(255,200,100,0.5)';
-  ctx.lineWidth = 4;
-  ctx.shadowColor = 'rgba(255,140,50,0.65)';
-  ctx.shadowBlur = 28;
-  ctx.stroke();
-  ctx.restore();
-
-  // Corner tick marks (die-cut feel)
-  const tk = 70;
-  ctx.save();
-  ctx.strokeStyle = 'rgba(255,200,100,0.7)';
-  ctx.lineWidth = 3;
-  [[SLOT_X + SLOT_R, SLOT_Y - 20, SLOT_X + SLOT_R + tk, SLOT_Y - 20],
-   [SLOT_X + SLOT_W - SLOT_R - tk, SLOT_Y - 20, SLOT_X + SLOT_W - SLOT_R, SLOT_Y - 20]
-  ].forEach(([x1,y1,x2,y2]) => {
-    ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
-  });
-  ctx.restore();
-
-  // ── TEXT BLOCK ────────────────────────────────────────────────
-  const textTop = SLOT_Y + SLOT_H + 56;
-  const cx = CW / 2;
-
-  // Scrim
-  const sc = ctx.createLinearGradient(0, textTop - 50, 0, textTop + 380);
-  sc.addColorStop(0, 'rgba(0,0,0,0)');
-  sc.addColorStop(0.18, 'rgba(0,0,0,0.52)');
-  sc.addColorStop(1,   'rgba(0,0,0,0.68)');
-  ctx.fillStyle = sc; ctx.fillRect(0, textTop - 50, CW, 440);
-
-  // Name
-  const displayName = (state.name || 'Your Name').trim();
-  ctx.save();
-  autoFont(ctx, displayName, CW - 130, 76, 32, '700', '"Space Grotesk","Arial Black",sans-serif');
-  ctx.fillStyle = '#FFFFFF';
-  ctx.textAlign = 'center';
-  ctx.shadowColor = 'rgba(0,0,0,0.65)'; ctx.shadowBlur = 14;
-  ctx.fillText(displayName, cx, textTop + 76);
-  ctx.restore();
-
-  // Role
-  const displayRole = (state.role || 'Builder').trim();
-  ctx.save();
-  ctx.font = '31px "JetBrains Mono","Courier New",monospace';
-  ctx.fillStyle = 'rgba(255,210,130,0.95)';
-  ctx.textAlign = 'center';
-  ctx.shadowColor = 'rgba(0,0,0,0.45)'; ctx.shadowBlur = 8;
-  ctx.fillText(displayRole, cx, textTop + 128);
-  ctx.restore();
-
-  // Builder title pill
-  const displayTitle = `⚡ ${state.title || 'Ship‑Fast Operator'}`;
-  ctx.save();
-  ctx.font = '28px "JetBrains Mono","Courier New",monospace';
-  const pillMetrics = ctx.measureText(displayTitle);
-  const pPadX = 42, pPadY = 0;
-  const pW = pillMetrics.width + pPadX * 2;
-  const pH = 56;
-  const pX = cx - pW / 2;
-  const pY = textTop + 155;
-
-  // Pill gradient
-  const pg = ctx.createLinearGradient(pX, pY, pX + pW, pY);
-  pg.addColorStop(0, '#00e5a0'); pg.addColorStop(1, '#00b8d4');
-  ctx.fillStyle = pg;
-  ctx.shadowColor = 'rgba(0,229,160,0.5)'; ctx.shadowBlur = 22;
-  if (ctx.roundRect) {
-    ctx.beginPath(); ctx.roundRect(pX, pY, pW, pH, pH/2); ctx.fill();
-  } else {
-    rrect(ctx, pX, pY, pW, pH, pH/2); ctx.fill();
-  }
-  ctx.shadowBlur = 0;
-  ctx.fillStyle = '#000'; ctx.textAlign = 'center';
-  ctx.fillText(displayTitle, cx, pY + pH - 16);
-  ctx.restore();
-
-  // ── HEADER BAR ────────────────────────────────────────────────
-  const hbg = ctx.createLinearGradient(0, 0, CW, 0);
-  hbg.addColorStop(0, 'rgba(255,140,50,0.16)'); hbg.addColorStop(1, 'rgba(0,100,180,0.16)');
-  ctx.fillStyle = hbg; ctx.fillRect(0, 0, CW, 105);
-
-  ctx.save();
-  ctx.font = '26px "JetBrains Mono","Courier New",monospace';
-  ctx.fillStyle = 'rgba(255,255,255,0.9)';
-  ctx.textAlign = 'left'; ctx.fillText('HH GOA 2026', 54, 68);
-
-  ctx.font = '700 28px "Space Grotesk","Arial Black",sans-serif';
-  ctx.fillStyle = 'rgba(255,200,100,0.9)';
-  ctx.textAlign = 'right'; ctx.fillText('#247', CW - 54, 68);
-
-  // Header separator
-  ctx.strokeStyle = 'rgba(255,200,100,0.28)'; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(54, 86); ctx.lineTo(CW - 54, 86); ctx.stroke();
-  ctx.restore();
-
-  // ── FOOTER ────────────────────────────────────────────────────
-  ctx.save();
-  ctx.font = '22px "JetBrains Mono","Courier New",monospace';
-  ctx.fillStyle = 'rgba(255,255,255,0.45)';
-  ctx.textAlign = 'center';
-  ctx.fillText('#FrameInGoa  ·  28‑31 Oct  ·  Goa, India', cx, CH - 48);
-  ctx.restore();
-
-  // Outer card border
-  ctx.save();
-  ctx.strokeStyle = 'rgba(255,200,100,0.13)'; ctx.lineWidth = 2;
-  ctx.strokeRect(1, 1, CW - 2, CH - 2);
-  ctx.restore();
+  const title = `⚡ ${state.title || 'SHIP-FAST OPERATOR'}`.toUpperCase();
+  ctx.save(); ctx.font = '700 18px "JetBrains Mono", monospace'; const tW = ctx.measureText(title).width + 44;
+  ctx.fillStyle = '#9AC95F'; rrect(ctx, CW/2 - tW/2, 1035, tW, 42, 21); ctx.fill();
+  ctx.fillStyle = '#063C21'; ctx.fillText(title, CW/2, 1063); ctx.restore();
+  
+  ctx.fillStyle = 'rgba(249, 215, 16, 0.85)'; ctx.font = '500 18px "JetBrains Mono", monospace';
+  ctx.textAlign = 'left'; ctx.fillText('#FrameInGoa', SLOT_X, CH - 94);
+  ctx.textAlign = 'right'; ctx.fillText('28 – 31 OCT 2026', CW - SLOT_X, CH - 94);
 }
 
-/* ── Copy canvas to result-canvas ───────────────────────────── */
 function copyCanvasToResult() {
-  const src = $('card-canvas');
-  const dst = $('result-canvas');
-  if (!src || !dst) return;
-  dst.width = src.width; dst.height = src.height;
+  const src = $('card-canvas'), dst = $('result-canvas');
   dst.getContext('2d').drawImage(src, 0, 0);
 }
 
-/* ── Debounced redraw ───────────────────────────────────────── */
-function scheduleRedraw(immediate) {
+function scheduleRedraw(imm) {
   if (state.drawTimer) clearTimeout(state.drawTimer);
-  const delay = immediate ? 0 : 150;
-  state.drawTimer = setTimeout(() => drawCard('card-canvas'), delay);
+  state.drawTimer = setTimeout(() => drawCard('card-canvas'), imm ? 0 : 60);
 }
 
-/* ── Caption text ───────────────────────────────────────────── */
-function captionText() {
-  const n = (state.name || 'Builder').trim();
-  const r = (state.role || 'Builder').trim();
-  return `Just built my HH Goa 2026 Builder ID 🏝️⚡ ${n} · ${r}. Building at Hacker House Goa this October. #FrameInGoa`;
-}
+const canvas = $('card-canvas');
+canvas.addEventListener('mousedown', e => { if (state.imageEl) { state.isDragging = true; state.startX = e.clientX - state.panX; state.startY = e.clientY - state.panY; } });
+window.addEventListener('mousemove', e => { if (state.isDragging) { state.panX = e.clientX - state.startX; state.panY = e.clientY - state.startY; scheduleRedraw(true); } });
+window.addEventListener('mouseup', () => state.isDragging = false);
+canvas.addEventListener('wheel', e => { if (state.imageEl) { e.preventDefault(); state.zoom = Math.max(0.5, Math.min(5, state.zoom * (e.deltaY < 0 ? 1.1 : 0.9))); scheduleRedraw(true); } }, { passive: false });
 
-/* ── Download ───────────────────────────────────────────────── */
-function downloadPNG() {
-  const canvas = $('result-canvas') || $('card-canvas');
-  if (!canvas) return;
-  canvas.toBlob(blob => {
-    if (!blob) return;
-    const slug = (state.name || 'builder').toLowerCase()
-      .replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || 'builder';
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `hhgoa2026-builder-id-${slug}.png`;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 1000);
-  }, 'image/png');
-}
-
-/* ── Share to X ─────────────────────────────────────────────── */
-async function shareToX() {
-  const shareBtn = $('share-btn');
-  if (shareBtn.disabled) return;
-  shareBtn.disabled = true;
-  shareBtn.textContent = 'Preparing…';
-
-  const canvas = $('result-canvas') || $('card-canvas');
-  if (!canvas) { shareBtn.disabled = false; shareBtn.textContent = '𝕏 Share to X'; return; }
-
-  canvas.toBlob(async blob => {
-    const file = new File([blob], 'hhgoa-builder-id.png', { type: 'image/png' });
-    const text = captionText();
-
-    // Path 1: Web Share API with file (mobile)
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try {
-        await navigator.share({ files: [file], text });
-        showSharedConfirmation();
-      } catch (e) {
-        if (e.name !== 'AbortError') fallbackShare(text);
-        else showSharedConfirmation();
-      }
-    } else {
-      fallbackShare(text);
-    }
-
-    shareBtn.disabled = false;
-    shareBtn.textContent = '𝕏 Share to X';
-  }, 'image/png');
-}
-
-function fallbackShare(text) {
-  const tweet = encodeURIComponent(text);
-  window.open(`https://twitter.com/intent/tweet?text=${tweet}`, '_blank');
-  showSharedConfirmation();
-}
-
-function showSharedConfirmation() {
-  $('shared-msg').style.display = 'block';
-}
-
-/* ── Wire up all events ─────────────────────────────────────── */
-
-// Landing CTA
 $('cta-btn').addEventListener('click', () => showScreen('upload'));
-
-// Upload back
 $('upload-back').addEventListener('click', () => showScreen('landing'));
 
 // File input
@@ -865,6 +611,52 @@ $('shuffle-btn').addEventListener('click', () => {
 // Set initial title in input
 $('inp-title').value = state.title;
 
+// Touch handling for mobile pinch-to-zoom & drag
+let tpCache = [];
+let initialDist = 0;
+let initialZoom = 1.0;
+
+canvas.addEventListener('touchstart', e => {
+  if (!state.imageEl) return;
+  if (e.targetTouches.length === 2) {
+    tpCache = [e.targetTouches[0], e.targetTouches[1]];
+    initialDist = Math.hypot(
+      tpCache[0].clientX - tpCache[1].clientX,
+      tpCache[0].clientY - tpCache[1].clientY
+    );
+    initialZoom = state.zoom;
+  } else if (e.targetTouches.length === 1) {
+    state.isDragging = true;
+    state.startX = e.targetTouches[0].clientX - state.panX;
+    state.startY = e.targetTouches[0].clientY - state.panY;
+  }
+});
+
+canvas.addEventListener('touchmove', e => {
+  if (!state.imageEl) return;
+  if (e.targetTouches.length === 2 && initialDist > 0) {
+    e.preventDefault();
+    const dist = Math.hypot(
+      e.targetTouches[0].clientX - e.targetTouches[1].clientX,
+      e.targetTouches[0].clientY - e.targetTouches[1].clientY
+    );
+    state.zoom = Math.max(0.5, Math.min(5.0, initialZoom * (dist / initialDist)));
+    scheduleRedraw(true);
+  } else if (e.targetTouches.length === 1 && state.isDragging) {
+    e.preventDefault();
+    state.panX = e.targetTouches[0].clientX - state.startX;
+    state.panY = e.targetTouches[0].clientY - state.startY;
+    scheduleRedraw(true);
+  }
+}, { passive: false });
+
+canvas.addEventListener('touchend', e => {
+  state.isDragging = false;
+  if (e.targetTouches.length < 2) {
+    initialDist = 0;
+  }
+});
+
 // Generate button
 $('generate-btn').addEventListener('click', () => {
   if (!state.name.trim()) {
@@ -899,13 +691,35 @@ $('share-btn').addEventListener('click', shareToX);
 // Make another
 $('btn-another').addEventListener('click', () => {
   // Reset state
-  state = { ...state, imageBlob: null, imageSrc: '', imageEl: null, name: '', role: '', title: BUILDER_TITLES[0], drawTimer: null };
+  state = { 
+    ...state, 
+    imageBlob: null, 
+    imageSrc: '', 
+    imageEl: null, 
+    name: '', 
+    role: '', 
+    title: BUILDER_TITLES[0], 
+    drawTimer: null,
+    zoom: 1.0,
+    panX: 0,
+    panY: 0
+  };
   $('inp-name').value = ''; $('name-count').textContent = '0/24';
   $('inp-role').value = '';
   $('inp-title').value = BUILDER_TITLES[0];
   fileInput.value = '';
   $('shared-msg').style.display = 'none';
   showScreen('landing');
+  
+  // Clear details canvas
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, CW, CH);
+  drawCard('card-canvas');
+});
+
+// Draw initial state of empty canvas on load
+window.addEventListener('load', () => {
+  drawCard('card-canvas');
 });
 </script>
 </body>
