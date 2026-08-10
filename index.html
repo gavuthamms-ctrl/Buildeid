@@ -724,6 +724,12 @@ function getBuilderNumber(name) {
   return String(num).padStart(4, '0');
 }
 
+function getIssueDate() {
+  const d = new Date();
+  const months = ["AUG", "SEP", "OCT", "NOV", "DEC", "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL"];
+  return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`.toUpperCase();
+}
+
 function drawCard(canvasId) {
   const canvas = $(canvasId); if (!canvas) return; const ctx = canvas.getContext('2d');
   
@@ -741,16 +747,13 @@ function drawCard(canvasId) {
   ctx.strokeRect(46, 46, CW - 92, CH - 92); 
   ctx.restore();
   
-  // Corner Botanical accents: draw custom botanical leaf motifs in corner areas
+  // Corner Botanical accents
   const drawCornerBotanical = (x, y, r) => {
     ctx.save(); ctx.translate(x, y); ctx.rotate(r);
-    
-    // Symmetrical botanical details
     ctx.fillStyle = '#9AC95F';
     ctx.beginPath(); 
     ctx.ellipse(22, 22, 8, 14, Math.PI/4, 0, Math.PI*2); 
     ctx.fill();
-    
     ctx.fillStyle = '#FBD903'; 
     ctx.beginPath(); 
     ctx.arc(38, 38, 5, 0, Math.PI*2); 
@@ -762,29 +765,39 @@ function drawCard(canvasId) {
   drawCornerBotanical(CW - 52, CH - 52, Math.PI); 
   drawCornerBotanical(52, CH - 52, Math.PI*3/2);
 
-  // LOCATOR LINE (small kicker above header)
+  // 1. ISSUING AUTHORITY LINE (tiny mono-caps kicker at the very top)
+  ctx.save();
+  ctx.font = '700 12px "Space Mono", monospace';
+  ctx.fillStyle = '#9AC95F';
+  ctx.textAlign = 'center';
+  ctx.letterSpacing = '3px';
+  ctx.fillText('ISSUED BY 2:47 PM STUDIO  ·  OFFICIAL BUILDER CREDENTIAL', CW/2, 82);
+  ctx.restore();
+
+  // 3. LOCATOR LINE (stays, above event title)
   ctx.save();
   ctx.font = '700 18px "Space Mono", monospace';
   ctx.fillStyle = '#FBD903';
   ctx.textAlign = 'center';
-  ctx.letterSpacing = '4px';
-  ctx.fillText('GOA, INDIA', CW/2, 100);
+  ctx.letterSpacing = '5px';
+  ctx.fillText('GOA, INDIA', CW/2, 116);
   ctx.restore();
 
-  // EVENT TITLE WORDMARK: "HACKER HOUSE"
+  // 2. EVENT TITLE WORDMARK: "HACKER HOUSE"
   ctx.save();
   ctx.fillStyle = '#FBD903';
   ctx.textAlign = 'center';
-  ctx.font = '900 64px "Source Serif 4", serif';
-  ctx.fillText('HACKER HOUSE', CW/2, 160);
+  ctx.font = '900 66px "Source Serif 4", serif';
+  ctx.fillText('HACKER HOUSE', CW/2, 180);
   ctx.restore();
 
-  // EDITION / SCALE MARKER: "2026 EDITION"
+  // 4. CREDENTIAL ID NUMBER
+  const bNum = getBuilderNumber(state.name);
   ctx.save();
   ctx.font = '700 14px "Space Mono", monospace';
   ctx.fillStyle = '#9AC95F';
   ctx.textAlign = 'center';
-  ctx.fillText('2026 EDITION  //  247 SELECT BUILDERS', CW/2, 195);
+  ctx.fillText(`CREDENTIAL ID: HHG26-${bNum}`, CW/2, 218);
   ctx.restore();
 
   // Photo slot container
@@ -799,35 +812,67 @@ function drawCard(canvasId) {
   }
   ctx.strokeStyle = '#FBD903'; ctx.lineWidth = 8; rrect(ctx, SLOT_X, SLOT_Y, SLOT_W, SLOT_H, SLOT_R); ctx.stroke(); ctx.restore();
 
-  // Name
-  const name = (state.name || 'YOUR NAME').toUpperCase();
-  ctx.fillStyle = '#FBD903'; ctx.textAlign = 'center'; ctx.font = '900 68px "Source Serif 4", serif'; ctx.fillText(name, CW/2, 915);
-  
-  // Role
-  const role = (state.role || 'BUILDER').toUpperCase();
-  ctx.save(); ctx.font = '700 22px "Space Mono", monospace'; const rW = ctx.measureText(role).width + 48;
-  ctx.fillStyle = '#E6207C'; rrect(ctx, CW/2 - rW/2, 950, rW, 42, 21); ctx.fill();
-  ctx.fillStyle = '#FFFFFF'; ctx.fillText(role, CW/2, 979); ctx.restore();
-
-  // Shuffled Title
-  const title = `⚡ ${state.title || 'SHIP-FAST OPERATOR'}`.toUpperCase();
-  ctx.save(); ctx.font = '700 18px "Space Mono", monospace'; const tW = ctx.measureText(title).width + 44;
-  ctx.fillStyle = '#9AC95F'; rrect(ctx, CW/2 - tW/2, 1025, tW, 42, 21); ctx.fill();
-  ctx.fillStyle = '#063C21'; ctx.fillText(title, CW/2, 1053); ctx.restore();
-
-  // BUILDER ID NUMBER: e.g. "BUILDER NO. 0142"
-  const bNum = getBuilderNumber(state.name);
+  // 6. HOLDER NAME Label & Value
   ctx.save();
-  ctx.font = '700 16px "Space Mono", monospace';
+  ctx.font = '700 12px "Space Mono", monospace';
   ctx.fillStyle = '#9AC95F';
   ctx.textAlign = 'center';
-  ctx.fillText(`COHORT CODES // BUILDER NO. ${bNum}`, CW/2, 1130);
+  ctx.fillText('CREDENTIAL HOLDER / BUILDER NAME', CW/2, 872);
   ctx.restore();
+
+  const name = (state.name || 'YOUR NAME').toUpperCase();
+  ctx.fillStyle = '#FBD903'; ctx.textAlign = 'center'; ctx.font = '900 68px "Source Serif 4", serif'; ctx.fillText(name, CW/2, 938);
   
-  // Bottom labels
-  ctx.fillStyle = 'rgba(251, 217, 3, 0.85)'; ctx.font = '700 18px "Space Mono", monospace';
-  ctx.textAlign = 'left'; ctx.fillText('#FrameInGoa', SLOT_X, CH - 94);
-  ctx.textAlign = 'right'; ctx.fillText('28 – 31 OCT 2026', CW - SLOT_X, CH - 94);
+  // 7. ROLE / STACK Label & Pill
+  ctx.save();
+  ctx.font = '700 12px "Space Mono", monospace';
+  ctx.fillStyle = '#9AC95F';
+  ctx.textAlign = 'center';
+  ctx.fillText('ROLE / STACK', CW/2, 975);
+  ctx.restore();
+
+  const role = (state.role || 'BUILDER').toUpperCase();
+  ctx.save(); ctx.font = '700 20px "Space Mono", monospace'; const rW = ctx.measureText(role).width + 48;
+  ctx.fillStyle = '#E6207C'; rrect(ctx, CW/2 - rW/2, 992, rW, 40, 20); ctx.fill();
+  ctx.fillStyle = '#FFFFFF'; ctx.fillText(role, CW/2, 1020); ctx.restore();
+
+  // 8. BUILDER TITLE Pill (unlabeled/playful)
+  const title = `⚡ ${state.title || 'SHIP-FAST OPERATOR'}`.toUpperCase();
+  ctx.save(); ctx.font = '700 16px "Space Mono", monospace'; const tW = ctx.measureText(title).width + 44;
+  ctx.fillStyle = '#9AC95F'; rrect(ctx, CW/2 - tW/2, 1056, tW, 40, 20); ctx.fill();
+  ctx.fillStyle = '#063C21'; ctx.fillText(title, CW/2, 1082); ctx.restore();
+
+  // 9. ISSUE DATE + VALIDITY WINDOW (side-by-side)
+  const issueDate = getIssueDate();
+  ctx.save();
+  ctx.font = '700 11px "Space Mono", monospace';
+  ctx.fillStyle = '#9AC95F';
+  ctx.textAlign = 'left';
+  ctx.fillText(`ISSUED: ${issueDate}`, SLOT_X, 1148);
+  ctx.textAlign = 'right';
+  ctx.fillText('VALID THRU: 31 OCT 2026', CW - SLOT_X, 1148);
+  ctx.restore();
+
+  // Horizontal divider line
+  ctx.strokeStyle = 'rgba(251, 217, 3, 0.3)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(SLOT_X, 1165);
+  ctx.lineTo(CW - SLOT_X, 1165);
+  ctx.stroke();
+  
+  // 10. FOOTER tags and fineprint
+  ctx.fillStyle = 'rgba(251, 217, 3, 0.85)'; ctx.font = '700 16px "Space Mono", monospace';
+  ctx.textAlign = 'left'; ctx.fillText('#FrameInGoa', SLOT_X, 1205);
+  ctx.textAlign = 'right'; ctx.fillText('LESS NOISE. MORE SIGNAL.', CW - SLOT_X, 1205);
+
+  // Tiny honest fineprint disclaimer at the bottom edge
+  ctx.save();
+  ctx.font = '400 11px "Space Mono", monospace';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+  ctx.textAlign = 'center';
+  ctx.fillText('Fan-made  ·  not an official HH Goa credential  ·  hhgoa.com', CW/2, 1245);
+  ctx.restore();
 }
 
 function copyCanvasToResult() {
